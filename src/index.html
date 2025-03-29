@@ -1,0 +1,296 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./output.css" rel="stylesheet">
+  <style>
+    /* Estilos existentes (grid, carrusel, etc.) */
+
+    .image-trigger {
+      cursor: pointer; /* Indica que el elemento es interactivo */
+    }
+
+    .expanded-image-overlay {
+      display: none; /* Oculto por defecto */
+      position: fixed; /* Cubre toda la ventana */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semitransparente */
+      z-index: 50; /* Asegura que esté por encima de todo */
+      justify-content: center; /* Centra la imagen horizontalmente */
+      align-items: center; /* Centra la imagen verticalmente */
+    }
+
+    .expanded-image-container {
+      max-width: 70%; /* Ancho máximo del 70% de la pantalla */
+      max-height: 70%; /* Alto máximo del 70% de la pantalla */
+      position: relative; /* Para el botón de cierre si lo añades */
+    }
+
+    .expanded-image-container img {
+      display: block; /* Elimina el espacio extra debajo de la imagen */
+      width: auto; /* Se ajusta al ancho del contenedor */
+      height: auto; /* Se ajusta a la altura del contenedor manteniendo la proporción */
+      max-width: 100%; /* No exceder el ancho del contenedor */
+      max-height: 100%; /* No exceder la altura del contenedor */
+      border-radius: 0.5rem; /* Mantener el borde redondeado */
+      object-fit: contain; /* Asegura que la imagen completa sea visible */
+    }
+
+    .grid-container { /* Añadimos esta clase al div principal del grid en el HTML */
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr)); /* 1 columna por defecto (móvil) */
+      gap: 1rem; /* Equivalente a gap-4 */
+    }
+
+    @media (min-width: 768px) { /* md: */
+      .grid-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columnas en pantallas medianas */
+      }
+    }
+
+    @media (min-width: 1024px) { /* lg: */
+      .grid-container {
+        grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 columnas en pantallas grandes (laptop) */
+      }
+    }
+
+    [data-carousel="vertical"] {
+      overflow: hidden;
+      max-height: 100vh; /* Ajusta según necesites */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .carousel-item {
+      margin-bottom: 1rem;
+      flex-shrink: 0;
+    }
+
+    .carousel-item img {
+      height: auto;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grid-container gap-4">
+    <div class="grid gap-4" data-carousel="vertical">
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image1.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image2.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image3.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image4.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image5.jpg" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="grid gap-4" data-carousel="vertical">
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image6.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image7.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image8.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="grid gap-4" data-carousel="vertical">
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="grid gap-4" data-carousel="vertical">
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-trigger">
+          <img class="h-auto max-w-full rounded-lg expanded-image" src="./images/image9.jpg" alt="">
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const carouselContainers = document.querySelectorAll('[data-carousel="vertical"]');
+
+      carouselContainers.forEach(container => {
+        const items = container.querySelectorAll('.carousel-item');
+        if (items.length > 1) {
+          let currentIndex = 0;
+          const speed = 2000; // Velocidad del carrusel en milisegundos (cada 2 segundos)
+
+          function nextSlide() {
+            currentIndex++;
+            if (currentIndex >= items.length) {
+              currentIndex = 0;
+            }
+            scrollToCurrent(true);
+          }
+
+          function scrollToCurrent(smooth = false) {
+            container.scrollTo({
+              top: items[currentIndex].offsetTop,
+              behavior: smooth ? 'smooth' : 'instant'
+            });
+          }
+
+          setInterval(nextSlide, speed);
+        }
+      });
+
+      const imageTriggers = document.querySelectorAll('.image-trigger');
+      const body = document.body;
+
+      imageTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+          const imageUrl = this.querySelector('img').src;
+
+          // Crear el overlay
+          const overlay = document.createElement('div');
+          overlay.classList.add('expanded-image-overlay');
+
+          // Crear el contenedor de la imagen expandida
+          const imageContainer = document.createElement('div');
+          imageContainer.classList.add('expanded-image-container');
+
+          // Crear la imagen expandida
+          const expandedImg = document.createElement('img');
+          expandedImg.src = imageUrl;
+
+          // Agregar la imagen al contenedor y el contenedor al overlay
+          imageContainer.appendChild(expandedImg);
+          overlay.appendChild(imageContainer);
+
+          // Agregar el overlay al body
+          body.appendChild(overlay);
+
+          // Función para cerrar el overlay al hacer clic fuera de la imagen
+          overlay.addEventListener('click', function(event) {
+            if (event.target === overlay) {
+              body.removeChild(overlay);
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
